@@ -4,6 +4,8 @@ var request = require("request");
 var pollingtoevent = require('polling-to-event');
 var wol = require('wake_on_lan');
 
+var execSync = require('child_process').execSync;
+
 module.exports = function(homebridge)
 {
   Service = homebridge.hap.Service;
@@ -146,6 +148,14 @@ setPowerState: function(powerState, callback, context) {
 		url = this.on_url;
 		body = this.on_body;
 		this.log("setPowerState - setting power state to on");
+	   	var cmd = "echo 'tx 4F:82:30:00' | cec-client -s";
+		var cmd2 = "echo 'on 0' | cec-client -s";
+		var options = {
+  			encoding: 'utf8'
+		};
+		execSync(cmd2, options);
+		setTimeout(() => execSync(cmd, options), 3000);
+
     } else {
 		url = this.off_url;
 		body = this.off_body;
