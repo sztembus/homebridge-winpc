@@ -154,7 +154,7 @@ setPowerState: function(powerState, callback, context) {
   			encoding: 'utf8'
 		};
 		execSync(cmd2, options);
-		setTimeout(() => execSync(cmd, options), 3000);
+		setTimeout(() => execSync(cmd, options), 5000);
 
     } else {
 		url = this.off_url;
